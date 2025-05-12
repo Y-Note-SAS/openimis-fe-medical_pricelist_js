@@ -36,6 +36,16 @@
   "medical_pricelist.deletePricelist.mutationLabel": "Pricelist deleted - {name}",
   "medical_pricelist.deletePricelistDialog.title": "Delete pricelist",
   "medical_pricelist.deletePricelistDialog.message": "Are you sure you want to delete the pricelist {name}?",
-  "medical_pricelist.table.selectAll":   "Select All",
-  "medical_pricelist.table.unselectAll": "Unselect All"
+  "medical_pricelist.table.selectAll": "Select All",
+  "medical_pricelist.table.unselectAll": "Unselect All",
+  "medical_pricelist.gql_query_pricelists_medical_items_perms": "Medical Pricelist | Query Pricelists Medical Items",
+  "medical_pricelist.gql_mutation_pricelists_medical_items_add_perms": "Medical Pricelist | Mutation Pricelists Medical Items Add",
+  "medical_pricelist.gql_mutation_pricelists_medical_items_update_perms": "Medical Pricelist | Mutation Pricelists Medical Items Update",
+  "medical_pricelist.gql_mutation_pricelists_medical_items_delete_perms": "Medical Pricelist | Mutation Pricelists Medical Items Delete",
+  "medical_pricelist.gql_mutation_pricelists_medical_items_duplicate_perms": "Medical Pricelist | Mutation Pricelists Medical Items Duplicate",
+  "medical_pricelist.gql_query_pricelists_medical_services_perms": "Medical Pricelist | Query Pricelists Medical Services",
+  "medical_pricelist.gql_mutation_pricelists_medical_services_add_perms": "Medical Pricelist | Mutation Pricelists Medical Services Add",
+  "medical_pricelist.gql_mutation_pricelists_medical_services_update_perms": "Medical Pricelist | Mutation Pricelists Medical Services Update",
+  "medical_pricelist.gql_mutation_pricelists_medical_services_delete_perms": "Medical Pricelist | Mutation Pricelists Medical Services Delete",
+  "medical_pricelist.gql_mutation_pricelists_medical_services_duplicate_perms": "Medical Pricelist | Mutation Pricelists Medical Services Duplicate"
 }
