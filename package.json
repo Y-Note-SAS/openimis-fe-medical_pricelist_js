@@ -6,14 +6,22 @@
   "repository": "openimis/openimis-fe-medical_pricelist_js",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/index.es.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    }
+  },
   "engines": {
     "node": ">=8",
     "npm": ">=5"
   },
   "scripts": {
-    "build": "rollup -c",
-    "start": "rollup -c -w",
-    "prepare":"npm run build"
+    "build": "vite build",
+    "start": "vite",
+    "format": "prettier src -w",
+    "prepare": "npm run build"
   },
   "peerDependency": {
     "react-intl": "^5.8.1"
@@ -26,11 +34,7 @@
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
     "@babel/runtime": "^7.9.6",
-    "@rollup/plugin-babel": "^5.0.0",
-    "@rollup/plugin-commonjs": "^20.0.0",
-    "@rollup/plugin-json": "^4.0.3",
-    "@rollup/plugin-node-resolve": "^13.0.4",
-    "@rollup/plugin-url": "^6.1.0",
+    "@vitejs/plugin-react": "^4.5.2",
     "moment": "^2.25.3",
     "prettier": "^2.3.2",
     "prop-types": "^15.7.2",
@@ -38,10 +42,13 @@
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
     "redux-api-middleware": "^3.2.1",
-    "rollup": "^2.10.0"
+    "vite": "^6.3.5",
+    "vite-plugin-svgr": "^4.3.0"
   },
   "files": [
     "dist"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "lodash": "^4.17.21"
+  }
 }
