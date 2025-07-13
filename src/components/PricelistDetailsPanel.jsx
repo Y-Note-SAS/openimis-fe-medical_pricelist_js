@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { withTheme, withStyles } from "@material-ui/core/styles";
+import { withTheme, withStyles } from "@mui/material/styles";
 import { Table, withModulesManager, combine, useTranslations, ErrorBoundary } from "@openimis/fe-core";
-import { Paper, Grid, Typography, Checkbox, Button} from "@material-ui/core";
+import { Paper, Grid, Typography, Checkbox, Button} from "@mui/material";
 import PriceOverruleDialog from "./PriceOverruleDialog";
 import SelectAllButton from "./PricelistSelectAllButton" 
 

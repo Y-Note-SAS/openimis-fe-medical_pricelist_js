@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core";
+import { withTheme, withStyles } from "@mui/material/styles";
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { combine, FormattedMessage, NumberInput } from "@openimis/fe-core";
 
 const styles = (theme) => ({

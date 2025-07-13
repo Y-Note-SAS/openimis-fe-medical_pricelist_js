@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import clsx from "clsx";
 import { bindActionCreators } from "redux";
 import { combine, withHistory, withModulesManager, historyPush, ProgressOrError } from "@openimis/fe-core";
-import { withStyles, withTheme } from "@material-ui/core/styles";
+import { withStyles, withTheme } from "@mui/material/styles";
 import { ErrorBoundary, useTranslations } from "@openimis/fe-core";
 import PricelistForm from "../components/PricelistForm";
 import {

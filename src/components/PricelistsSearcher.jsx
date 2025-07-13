@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from "react";
 
-import { Tooltip, IconButton } from "@material-ui/core";
-import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Tab as TabIcon, Delete as DeleteIcon } from "@material-ui/icons";
+import { Tooltip, IconButton } from "@mui/material";
+import { withTheme, withStyles } from "@mui/material/styles";
+import { Tab as TabIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
 import { combine, useTranslations, ConfirmDialog, Searcher, withModulesManager } from "@openimis/fe-core";
 import PricelistsFilters from "./PricelistsFilters";

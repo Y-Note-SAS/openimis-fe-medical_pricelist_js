@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import ReplayIcon from "@material-ui/icons/Replay";
+import ReplayIcon from "@mui/icons-material/Replay";
 
 import { withHistory, withModulesManager, Form } from "@openimis/fe-core";
 import { clearMedicalPricelists } from "../actions";

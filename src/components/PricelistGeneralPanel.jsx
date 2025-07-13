@@ -1,8 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { withStyles, withTheme } from "@mui/material/styles";
+import { Grid } from "@mui/material";
 
 import { 
   FormPanel, withHistory, withModulesManager, 
