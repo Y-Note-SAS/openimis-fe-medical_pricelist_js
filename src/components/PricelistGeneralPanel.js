@@ -108,8 +108,8 @@ class PricelistGeneralPanel extends FormPanel {
           <Grid item xs={2} className={classes.item}>
             <TextInput
               module="insuree"
-              label={`medical_pricelist.table.detailsName`}
-              value={edited?.code ?? ""}
+              label={!!this.props.activeType && this.props.activeType === 'items' ?  `medical_pricelist.table.medicalItemName`: `medical_pricelist.table.medicalServiceName`}
+              value={edited?.serviceName ?? ""}
               onChange={this.triggerDebounceName}
               readOnly={readOnly}
             />

@@ -1,3 +1,4 @@
 {
-    "medical_pricelist.table.detailsName": "Nom détails"
+    "medical_pricelist.table.medicalItemName": "Nom du produit", 
+    "medical_pricelist.table.medicalServiceName": "Nom du service"    
 }
