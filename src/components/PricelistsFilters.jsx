@@ -9,7 +9,7 @@ import {
   useDebounceCb,
 } from "@openimis/fe-core";
 import { FormControlLabel, Grid, Checkbox } from "@mui/material";
-import { withTheme, withStyles } from "@mui/material/styles";
+import { withTheme, withStyles } from "@mui/styles";
 
 const styles = (theme) => ({
   form: {

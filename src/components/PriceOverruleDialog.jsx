@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withTheme, withStyles } from "@mui/material/styles";
+import { withTheme, withStyles } from "@mui/styles";
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@mui/material";
 import { combine, FormattedMessage, NumberInput } from "@openimis/fe-core";
 

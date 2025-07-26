@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { withTheme, withStyles } from "@mui/material/styles";
+import { withTheme, withStyles } from "@mui/styles";
 import { Table, withModulesManager, combine, useTranslations, ErrorBoundary } from "@openimis/fe-core";
 import { Paper, Grid, Typography, Checkbox, Button} from "@mui/material";
 import PriceOverruleDialog from "./PriceOverruleDialog";
