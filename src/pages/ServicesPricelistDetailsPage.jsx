@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import clsx from "clsx";
 import { bindActionCreators } from "redux";
 import { combine, withHistory, withModulesManager, historyPush, ProgressOrError } from "@openimis/fe-core";
-import { withStyles, withTheme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { ErrorBoundary, useTranslations } from "@openimis/fe-core";
 import PricelistForm from "../components/PricelistForm";
 import {
@@ -13,14 +13,14 @@ import {
   fetchServicesPricelistDetails,
 } from "../actions";
 import { RIGHT_SERVICES_PRICELISTS_EDIT } from "../constants";
-const styles = (theme) => ({
-  page: theme.page,
-  locked: theme.page.locked,
-});
+
+const StyledServicesPriceListDetailsPage = styled('div')(({ theme }) => ({
+  ...theme.page,
+  '&.locked': theme.page.locked,
+}));
 
 const ServicesPriceListDetailsPage = (props) => {
   const {
-    classes,
     isFetching,
     error,
     match,
@@ -79,7 +79,7 @@ const ServicesPriceListDetailsPage = (props) => {
   };
 
   return (
-    <div className={clsx(classes.page, pricelist.validityTo && classes.locked)}>
+    <StyledServicesPriceListDetailsPage className={clsx(pricelist.validityTo && "locked")}>
       <ErrorBoundary>
         <ProgressOrError progress={isFetching} error={error} />
         {!isFetching && (
@@ -96,7 +96,7 @@ const ServicesPriceListDetailsPage = (props) => {
           />
         )}
       </ErrorBoundary>
-    </div>
+    </StyledServicesPriceListDetailsPage>
   );
 };
 
@@ -122,8 +122,6 @@ const mapDispatchToProps = (dispatch) =>
   );
 
 const enhance = combine(
-  withTheme,
-  withStyles(styles),
   withHistory,
   withModulesManager,
   connect(mapStateToProps, mapDispatchToProps)

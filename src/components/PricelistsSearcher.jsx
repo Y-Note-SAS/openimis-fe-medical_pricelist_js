@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 
 import { Tooltip, IconButton } from "@mui/material";
-import { withTheme, withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { Tab as TabIcon, Delete as DeleteIcon } from "@mui/icons-material";
 
 import { combine, useTranslations, ConfirmDialog, Searcher, withModulesManager } from "@openimis/fe-core";
@@ -14,15 +14,14 @@ const formatLocation = (location) => {
   return location ? `${location.code} - ${location.name}` : "";
 };
 
-const styles = (theme) => ({
-  horizontalButtonContainer: theme.buttonContainer.horizontal,
-});
+const StyledPricelistsSearcher = styled('div')(({ theme }) => ({
+  '& .horizontalButtonContainer': theme.buttonContainer.horizontal,
+}));
 
 const PricelistsSearcher = (props) => {
   const {
     pageInfo,
     items,
-    classes,
     isFetching,
     isFetched,
     cacheFiltersKey,
@@ -68,7 +67,7 @@ const PricelistsSearcher = (props) => {
       (pricelist) => (filters?.showHistory?.value ? formatDateFromISO(pricelist.validityFrom) : null),
       (pricelist) => (filters?.showHistory?.value ? formatDateFromISO(pricelist.validityTo) : null),
       (pricelist) => (
-        <div className={classes.horizontalButtonContainer}>
+        <div className="horizontalButtonContainer">
           <Tooltip title={formatMessage("openNewTab")}>
             <IconButton onClick={() => onDoubleClick(pricelist, true)}>
               <TabIcon />
@@ -105,7 +104,7 @@ const PricelistsSearcher = (props) => {
   }, []);
 
   return (
-    <>
+    <StyledPricelistsSearcher>
       {confirmPricelistToDelete && (
         <ConfirmDialog
           confirm={{
@@ -138,10 +137,10 @@ const PricelistsSearcher = (props) => {
         filtersToQueryParams={filtersToQueryParams}
         onDoubleClick={onDoubleClick}
       />
-    </>
+    </StyledPricelistsSearcher>
   );
 };
 
-const enhance = combine(withTheme, withModulesManager, withStyles(styles))
+const enhance = combine(withModulesManager);
 
 export default enhance(PricelistsSearcher);

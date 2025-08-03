@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { withStyles, withTheme } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { Grid } from "@mui/material";
 
 import { 
@@ -18,9 +18,9 @@ import {
 } from "../actions";
 import { SERVICES_PRICELIST_TYPE } from "../constants";
 
-const styles = (theme) => ({
-  item: theme.paper.item,
-});
+const StyledPricelistGeneralPanel = styled('div')(({ theme }) => ({
+  '& .item': theme.paper.item,
+}));
 
 class PricelistGeneralPanel extends FormPanel {
   onRegionChange = (value) => {
@@ -39,7 +39,6 @@ class PricelistGeneralPanel extends FormPanel {
 
   render() {
     const {
-      classes,
       readOnly,
       edited,
       isMedicalServiceValid,
@@ -54,9 +53,9 @@ class PricelistGeneralPanel extends FormPanel {
     const district = edited.location?.parent ? edited.location : null;
     const servicesOrItems = activeType === SERVICES_PRICELIST_TYPE;
     return (
-      <>
+      <StyledPricelistGeneralPanel>
         <Grid container>
-          <Grid item xs={4} className={classes.item}>
+          <Grid item xs={4} className="item">
             <ValidatedTextInput
               action={servicesOrItems ? medicalServicesValidationCheck : medicalItemsValidationCheck}
               clearAction={servicesOrItems ? medicalServicesValidationClear : medicalItemsValidationClear}
@@ -75,7 +74,7 @@ class PricelistGeneralPanel extends FormPanel {
               value={edited?.name ?? ""}
             />
           </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={3} className="item">
             <PublishedComponent
               pubRef="location.RegionPicker"
               value={region}
@@ -84,7 +83,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onRegionChange}
             />
           </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid item xs={3} className="item">
             <PublishedComponent
               region={region}
               value={district}
@@ -94,7 +93,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onDistrictChange}
             />
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+          <Grid item xs={2} className="item">
             <PublishedComponent
               pubRef="core.DatePicker"
               value={edited?.pricelistDate}
@@ -106,7 +105,7 @@ class PricelistGeneralPanel extends FormPanel {
             />
           </Grid>
         </Grid>
-      </>
+      </StyledPricelistGeneralPanel>
     );
   }
 }
@@ -124,5 +123,5 @@ const mapStateToProps = (state) => ({
 });
 
 export default withHistory(
-  withModulesManager(connect(mapStateToProps)(withTheme(withStyles(styles)(PricelistGeneralPanel))))
+  withModulesManager(connect(mapStateToProps)(PricelistGeneralPanel))
 );

@@ -9,20 +9,18 @@ import {
   useDebounceCb,
 } from "@openimis/fe-core";
 import { FormControlLabel, Grid, Checkbox } from "@mui/material";
-import { withTheme, withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 
-const styles = (theme) => ({
-  form: {
-    padding: "0 0 10px 0",
-    width: "100%",
-  },
-  item: {
+const StyledPricelistsFilter = styled('section')(({ theme }) => ({
+  padding: "0 0 10px 0",
+  width: "100%",
+  '& .item': {
     padding: theme.spacing(1),
   },
-});
+}));
 
 const PricelistsFilter = (props) => {
-  const { classes, filters, onChangeFilters, modulesManager } = props;
+  const { filters, onChangeFilters, modulesManager } = props;
   const { formatMessage } = useTranslations("medical_pricelist", modulesManager);
 
   const onRegionChange = (value) => {
@@ -41,13 +39,13 @@ const PricelistsFilter = (props) => {
   const triggerDebounceName = useDebounceCb(onNameChange, modulesManager.getConf("fe-admin", "debounceTime", 500));
 
   return (
-    <section className={classes.form}>
+    <StyledPricelistsFilter>
       <Grid container>
         <ControlledField
           module="medical_pricelist"
           id="medicalPricelistsFilter.name"
           field={
-            <Grid item xs={4} className={classes.item}>
+            <Grid item xs={4} className="item">
               <TextInput
                 module="medical_pricelist"
                 name="name"
@@ -62,7 +60,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.region"
           field={
-            <Grid item xs={3} className={classes.item}>
+            <Grid item xs={3} className="item">
               <PublishedComponent
                 pubRef="location.RegionPicker"
                 value={filters?.region?.value}
@@ -76,7 +74,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.district"
           field={
-            <Grid item xs={3} className={classes.item}>
+            <Grid item xs={3} className="item">
               <PublishedComponent
                 pubRef="location.DistrictPicker"
                 value={filters?.district?.value}
@@ -92,7 +90,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.date"
           field={
-            <Grid item xs={2} className={classes.item}>
+            <Grid item xs={2} className="item">
               <PublishedComponent
                 pubRef="core.DatePicker"
                 value={filters?.date?.value}
@@ -115,7 +113,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.showHistory"
           field={
-            <Grid item xs={6} className={classes.item}>
+            <Grid item xs={6} className="item">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -138,10 +136,10 @@ const PricelistsFilter = (props) => {
           }
         />
       </Grid>
-    </section>
+    </StyledPricelistsFilter>
   );
 };
 
-const enhance = combine(withTheme, withStyles(styles), withModulesManager);
+const enhance = combine(withModulesManager);
 
 export default enhance(PricelistsFilter);

@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { withTheme, withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { Table, withModulesManager, combine, useTranslations, ErrorBoundary } from "@openimis/fe-core";
 import { Paper, Grid, Typography, Checkbox, Button} from "@mui/material";
 import PriceOverruleDialog from "./PriceOverruleDialog";
 import SelectAllButton from "./PricelistSelectAllButton" 
 
-const styles = (theme) => ({
-  paper: theme.paper.paper,
-  item: theme.paper.item,
-  tableTitle: theme.table.title,
-  checkbox: {
+const StyledPricelistDetailsPanel = styled('div')(({ theme }) => ({
+  '& .paper': theme.paper.paper,
+  '& .item': theme.paper.item,
+  '& .tableTitle': theme.table.title,
+  '& .checkbox': {
     padding: theme.spacing(0),
   },
-  editDetailBtn: {
+  '& .editDetailBtn': {
     padding: 0,
   },
-});
+}));
 
 const HEADERS = [
   "",
@@ -33,7 +33,6 @@ const isItemActive = (edited, item) => {
 
 const PricelistDetailsPanel = (props) => {
   const {
-    classes,
     modulesManager,
     pageSize = 20,
     edited,
@@ -96,7 +95,7 @@ const PricelistDetailsPanel = (props) => {
   };
 
   return (
-    <>
+    <StyledPricelistDetailsPanel>
       {editedDetail && (
         <ErrorBoundary>
           <PriceOverruleDialog
@@ -112,14 +111,14 @@ const PricelistDetailsPanel = (props) => {
         </ErrorBoundary>
       )}
       <Grid item xs={12}>
-        <Paper className={classes.paper}>
-          <Grid container className={classes.tableTitle} justifyContent="space-between" alignItems="center">
+        <Paper className="paper">
+          <Grid container className="tableTitle" justifyContent="space-between" alignItems="center">
             <Grid item>
               <Typography variant="h6">{formatMessage("pricelistForm.table.title")}</Typography>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} className={classes.item}>
+            <Grid item xs={12} className="item">
               <Table
                 error={details.error}
                 fetching={details.isFetching}
@@ -128,7 +127,7 @@ const PricelistDetailsPanel = (props) => {
                   (s) => (
                     <Checkbox
                       disabled={readOnly}
-                      className={classes.checkbox}
+                      className="checkbox"
                       color="primary"
                       onChange={(event) => onDetailChange(event, s)}
                       checked={isItemActive(edited, s)}
@@ -146,7 +145,7 @@ const PricelistDetailsPanel = (props) => {
                         size="small"
                         variant="text"
                         color="primary"
-                        className={classes.editDetailBtn}
+                        className="editDetailBtn"
                         onClick={() => setEditedDetail(s)}
                       >
                         {formatMessage("medical_pricelist.table.editOverruleButton")}
@@ -172,10 +171,10 @@ const PricelistDetailsPanel = (props) => {
           </Grid>
         </Paper>
       </Grid>
-    </>
+    </StyledPricelistDetailsPanel>
   );
 };
 
-const enhance = combine(withModulesManager, withTheme, withStyles(styles));
+const enhance = combine(withModulesManager);
 
 export default enhance(PricelistDetailsPanel);

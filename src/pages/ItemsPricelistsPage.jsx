@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { withTheme, withStyles } from "@mui/styles";
+import { styled } from "@mui/material/styles";
 import { Fab } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import {
@@ -16,16 +16,14 @@ import PricelistsSearcher from "../components/PricelistsSearcher";
 import { fetchItemsPricelistsSummaries, deleteItemsPricelist } from "../actions";
 import { RIGHT_ITEMS_PRICELISTS_DELETE, RIGHT_ITEMS_PRICELISTS_ADD, MODULE_NAME} from "../constants";
 
-const styles = (theme) => ({
-  page: {
-    ...theme.page,
-    paddingInline: 16,
-  },
-  fab: theme.fab,
-});
+const StyledItemsPricelistsPage = styled('div')(({ theme }) => ({
+  ...theme.page,
+  paddingInline: 16,
+  '& .fab': theme.fab,
+}));
 
 const ItemsPricelistsPage = (props) => {
-  const { classes, modulesManager, history } = props;
+  const { modulesManager, history } = props;
   const { formatMessage, formatMessageWithValues } = useTranslations("medical_pricelist", modulesManager);
   const rights = useSelector((state) => state.core.user?.i_user?.rights ?? []);
   const module = useSelector((state) => state.core?.savedPagination?.module);
@@ -68,7 +66,7 @@ const ItemsPricelistsPage = (props) => {
   }, [module]);
 
   return (
-    <div className={classes.page}>
+    <StyledItemsPricelistsPage>
       <PricelistsSearcher
         onFiltersChange={onFiltersChange}
         onDelete={onDelete}
@@ -82,17 +80,17 @@ const ItemsPricelistsPage = (props) => {
       />
       {rights.includes(RIGHT_ITEMS_PRICELISTS_ADD) &&
         withTooltip(
-          <div className={classes.fab}>
+          <div className="fab">
             <Fab color="primary" onClick={onAdd}>
               <AddIcon />
             </Fab>
           </div>,
           formatMessage("addNewPriceListTooltip")
         )}
-    </div>
+    </StyledItemsPricelistsPage>
   );
 };
 
-const enhance = combine(withModulesManager, withHistory, withTheme, withStyles(styles));
+const enhance = combine(withModulesManager, withHistory);
 
 export default enhance(ItemsPricelistsPage);
