@@ -47,5 +47,8 @@
   "medical_pricelist.gql_mutation_pricelists_medical_services_add_perms": "Medical Pricelist | Mutation Pricelists Medical Services Add",
   "medical_pricelist.gql_mutation_pricelists_medical_services_update_perms": "Medical Pricelist | Mutation Pricelists Medical Services Update",
   "medical_pricelist.gql_mutation_pricelists_medical_services_delete_perms": "Medical Pricelist | Mutation Pricelists Medical Services Delete",
-  "medical_pricelist.gql_mutation_pricelists_medical_services_duplicate_perms": "Medical Pricelist | Mutation Pricelists Medical Services Duplicate"
+  "medical_pricelist.gql_mutation_pricelists_medical_services_duplicate_perms": "Medical Pricelist | Mutation Pricelists Medical Services Duplicate",
+  "medical_pricelist.table.medicalItemName": "Product Name", 
+  "medical_pricelist.table.medicalServiceName": "Service Name"    
+
 }

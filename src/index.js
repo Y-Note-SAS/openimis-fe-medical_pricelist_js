@@ -1,4 +1,5 @@
 import messages_en from "./translations/en.json";
+import messages_fr from "./translations/fr.json";
 import reducer from "./reducer";
 import PriceListLoader from "./components/PriceListLoader";
 import ServicesPricelistPicker from "./pickers/ServicesPricelistPicker";
@@ -9,7 +10,7 @@ import ServicesPricelistDetailsPage from "./pages/ServicesPricelistDetailsPage";
 import ItemsPricelistDetailsPage from "./pages/ItemsPricelistDetailsPage";
 
 const DEFAULT_CONFIG = {
-  "translations": [{ key: "en", messages: messages_en }],
+  "translations": [{ key: "en", messages: messages_en }, { key: "fr", messages: messages_fr }],
   "reducers": [{ key: "medical_pricelist", reducer }],
   "refs": [
     { key: "medical_pricelist.ServicesPriceListPicker", ref: ServicesPricelistPicker },
