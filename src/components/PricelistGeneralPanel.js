@@ -18,6 +18,7 @@ import {
   medicalItemsSetValid,
 } from "../actions";
 import { SERVICES_PRICELIST_TYPE } from "../constants";
+import { first } from "lodash";
 
 const styles = (theme) => ({
   item: theme.paper.item,
@@ -44,10 +45,12 @@ class PricelistGeneralPanel extends FormPanel {
     return shouldValidate;
   };
   onCodeChange = (value) => {
-    this.props.onChangeFilters([{ id: "code", value, filter: `code_Icontains: "${value}"` }]);
+    let filters = [`code_Icontains: "${value}"`, `first: 20`];
+    this.props.fetchDetails(filters);
   };
   onNameChange = (value) => {
-    this.props.onChangeFilters([{ id: "name", value, filter: `name_Icontains: "${value}"` }]);
+    let filters = [`name_Icontains: "${value}"`, `first: 20`];
+    this.props.fetchDetails(filters);
   };
 
   render() {
@@ -101,7 +104,7 @@ class PricelistGeneralPanel extends FormPanel {
             <TextInput
               module="medical"
               label={`medical_pricelist.table.code`}
-              value={edited?.code ?? ""}
+              value={edited.code}
               onChange={this.triggerDebounceCode}
             />
           </Grid>
@@ -109,7 +112,7 @@ class PricelistGeneralPanel extends FormPanel {
             <TextInput
               module="insuree"
               label={!!this.props.activeType && this.props.activeType === 'items' ?  `medical_pricelist.table.medicalItemName`: `medical_pricelist.table.medicalServiceName`}
-              value={edited?.serviceName ?? ""}
+              value={edited.serviceOrItemName}
               onChange={this.triggerDebounceName}
               readOnly={readOnly}
             />
