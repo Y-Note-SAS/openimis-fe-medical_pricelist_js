@@ -37,7 +37,6 @@ const ItemsPriceListDetailsPage = (props) => {
   const [isLocked, setLocked] = useState(false);
   const [resetKey, setResetKey] = useState(null);
   const [pricelist, setPricelist] = useState({});
-  const [filters, setFilters] = useState([])
 
   useEffect(() => {
     if (match.params.price_list_id) {
@@ -75,7 +74,7 @@ const ItemsPriceListDetailsPage = (props) => {
     setResetKey(Date.now());
   };
 
-  const fetchDetails = () => {
+  const fetchDetails = (filters) => {
     fetchItemsPricelistDetails(modulesManager, filters, pricelist?.id);
   };
 
