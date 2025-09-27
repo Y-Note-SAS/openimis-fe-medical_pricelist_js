@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 
-import { Tooltip, IconButton } from "@material-ui/core";
+import { Tooltip, Button } from "@material-ui/core";
 import { withTheme, withStyles } from "@material-ui/core/styles";
 import { Tab as TabIcon, Delete as DeleteIcon } from "@material-ui/icons";
 
@@ -70,15 +70,15 @@ const PricelistsSearcher = (props) => {
       (pricelist) => (
         <div className={classes.horizontalButtonContainer}>
           <Tooltip title={formatMessage("openNewTab")}>
-            <IconButton onClick={() => onDoubleClick(pricelist, true)}>
-              <TabIcon />
-            </IconButton>
+            <Button startIcon={<TabIcon />} onClick={() => onDoubleClick(pricelist, true)}>
+              {formatMessage("openNewTabButton.buttonText")}
+            </Button>
           </Tooltip>
           {canDelete(pricelist) && (
             <Tooltip title={formatMessage("deletePricelistTooltip")}>
-              <IconButton onClick={() => setPricelistToDelete(pricelist)}>
-                <DeleteIcon />
-              </IconButton>
+              <Button startIcon={<DeleteIcon />} onClick={() => setPricelistToDelete(pricelist)}>
+                {formatMessage("deletePricelistButton.buttonText")}
+              </Button>
             </Tooltip>
           )}
         </div>
