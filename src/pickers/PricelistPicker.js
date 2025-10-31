@@ -41,7 +41,7 @@ class PricelistPicker extends Component {
     if (prevProps.withNull !== this.props.withNull) {
       this.setState((state, props) => ({ baseOptions: props.withNull ? [this._nullOption] : [] }));
     }
-    if (!_.isEqual(prevProps.region, this.props.region)) {
+    if (!_.isEqual(prevProps, this.props)) {
       if (!this.props.region) {
         this.setState({ regionOptions: [] });
       } else {
@@ -57,7 +57,7 @@ class PricelistPicker extends Component {
         );
       }
     }
-    if (!_.isEqual(prevProps.district, this.props.district)) {
+    if (!_.isEqual(prevProps, this.props)) {
       if (!this.props.district) {
         this.setState({ districtOptions: [] });
       } else {
