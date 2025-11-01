@@ -7,7 +7,7 @@ import PricelistPicker from "./PricelistPicker";
 
 class ItemsPricelistPicker extends Component {
   render() {
-    const { name, value, onChange, readOnly, region, district } = this.props;
+    const { name, value, onChange, readOnly, region, district, reload } = this.props;
     return (
       <PricelistPicker
         label="itemsPricelist"
@@ -19,6 +19,7 @@ class ItemsPricelistPicker extends Component {
         onChange={onChange}
         region={region}
         district={district}
+        reload={reload}
       />
     );
   }

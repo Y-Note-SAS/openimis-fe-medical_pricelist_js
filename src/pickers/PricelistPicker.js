@@ -41,23 +41,34 @@ class PricelistPicker extends Component {
     if (prevProps.withNull !== this.props.withNull) {
       this.setState((state, props) => ({ baseOptions: props.withNull ? [this._nullOption] : [] }));
     }
-    if (!_.isEqual(prevProps, this.props)) {
+    const propsToCheck = [
+      "region",
+      "district",
+      "reload",
+    ];
+    
+    const hasChanged = propsToCheck.some(
+      (key) => !_.isEqual(prevProps[key], this.props[key])
+    );
+    
+    if (hasChanged) {
       if (!this.props.region) {
         this.setState({ regionOptions: [] });
       } else {
-        this.setState({ loading: true }, (e) =>
-          this.props.fetchPriceLists(this.props.region).then(
-            (r) =>
-              this._isMounted &&
+        this.setState({ loading: true }, () => {
+          this.props.fetchPriceLists(this.props.region).then((r) => {
+            if (this._isMounted) {
               this.setState((state, props) => ({
                 loading: false,
                 regionOptions: parseData(r.payload.data[props.parseKey]).map(this.formatOption),
-              }))
-          )
-        );
+              }));
+            }
+          });
+        });
       }
     }
-    if (!_.isEqual(prevProps, this.props)) {
+    
+    if (hasChanged) {
       if (!this.props.district) {
         this.setState({ districtOptions: [] });
       } else {

@@ -6,7 +6,7 @@ import { fetchServicesPriceLists } from "../actions";
 import PricelistPicker from "./PricelistPicker";
 
 const ServicesPricelistPicker = (props) => {
-  const { fetchServicesPriceLists, name, value, onChange, readOnly, region, district } = props;
+  const { fetchServicesPriceLists, name, value, onChange, readOnly, region, district, reload } = props;
   return (
     <PricelistPicker
       label="servicesPricelist"
@@ -18,6 +18,7 @@ const ServicesPricelistPicker = (props) => {
       onChange={onChange}
       region={region}
       district={district}
+      reload={reload}
     />
   );
 };
