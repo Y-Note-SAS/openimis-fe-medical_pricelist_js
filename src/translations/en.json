@@ -10,6 +10,8 @@
   "medical_pricelist.valid_from": "Valid From",
   "medical_pricelist.valid_to": "Valid To",
   "medical_pricelist.openNewTab": "Open in a new tab",
+  "medical_pricelist.openNewTabButton.buttonText": "Open",
+  "medical_pricelist.deletePricelistButton.buttonText": "Delete",
   "medical_pricelist.addNewPriceListTooltip": "Add a new pricelist",
   "medical_pricelist.deletePricelistTooltip": "Delete",
   "medical_pricelist.nameTaken": "Name already taken.",
@@ -47,5 +49,8 @@
   "medical_pricelist.gql_mutation_pricelists_medical_services_add_perms": "Medical Pricelist | Mutation Pricelists Medical Services Add",
   "medical_pricelist.gql_mutation_pricelists_medical_services_update_perms": "Medical Pricelist | Mutation Pricelists Medical Services Update",
   "medical_pricelist.gql_mutation_pricelists_medical_services_delete_perms": "Medical Pricelist | Mutation Pricelists Medical Services Delete",
-  "medical_pricelist.gql_mutation_pricelists_medical_services_duplicate_perms": "Medical Pricelist | Mutation Pricelists Medical Services Duplicate"
+  "medical_pricelist.gql_mutation_pricelists_medical_services_duplicate_perms": "Medical Pricelist | Mutation Pricelists Medical Services Duplicate",
+  "medical_pricelist.table.medicalItemName": "Product Name", 
+  "medical_pricelist.table.medicalServiceName": "Service Name"    
+
 }
