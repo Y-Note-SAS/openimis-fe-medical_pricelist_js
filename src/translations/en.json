@@ -1,5 +1,5 @@
 {
-  "pickerNoOptionsLabel": "No options available(no pricelist has a matching location)",
+  "medical_pricelist.pickerNoOptionsLabel": "No options available(no pricelist has a matching location)",
   "medical_pricelist.servicesPricelist": "Services Pricelist",
   "medical_pricelist.itemsPricelist": "Items Pricelist",
   "medical_pricelist.pricelistsSearcher.table.title": "{count} Pricelists",
