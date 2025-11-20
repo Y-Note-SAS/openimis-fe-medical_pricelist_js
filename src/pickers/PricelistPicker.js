@@ -100,7 +100,6 @@ class PricelistPicker extends Component {
         options={this.filterOptions(options)}
         name={name}
         value={value}
-        pickerNoOptionsLabel={formatMessage(this.props.intl, "medical_pricelist", "pickerNoOptionsLabel")}
         readOnly={readOnly}
         onChange={onChange}
       />
