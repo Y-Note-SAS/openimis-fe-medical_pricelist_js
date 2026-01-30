@@ -143,4 +143,5 @@ const PricelistsSearcher = (props) => {
 
 const enhance = combine(withModulesManager);
 
+export { isRowDisabled };
 export default enhance(PricelistsSearcher);

@@ -93,4 +93,5 @@ const ItemsPricelistsPage = (props) => {
 
 const enhance = combine(withModulesManager, withHistory);
 
+export { StyledItemsPricelistsPage };
 export default enhance(ItemsPricelistsPage);

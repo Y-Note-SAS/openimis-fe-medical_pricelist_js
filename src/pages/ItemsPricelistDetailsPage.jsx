@@ -126,4 +126,5 @@ const enhance = combine(
   withModulesManager,
   connect(mapStateToProps, mapDispatchToProps)
 );
+export { StyledItemsPriceListDetailsPage };
 export default enhance(ItemsPriceListDetailsPage);

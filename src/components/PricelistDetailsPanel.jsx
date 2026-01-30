@@ -69,7 +69,7 @@ const PricelistDetailsPanel = (props) => {
     if (event.target.checked) {
       onEditedChanged({
         ...edited,
-        // It's useless to add the item to the list of added items if it is already marked as active
+        // It's useless to add the to the list of added items if it is already marked as active
         addedDetails: !item.isActive ? (edited.addedDetails ?? []).concat(item.uuid) : edited.addedDetails,
         removedDetails: edited.removedDetails && edited.removedDetails.filter((x) => x !== item.uuid),
       });
@@ -110,15 +110,15 @@ const PricelistDetailsPanel = (props) => {
           />
         </ErrorBoundary>
       )}
-      <Grid item xs={12}>
+      <Grid size={12}>
         <Paper className="paper">
           <Grid container className="tableTitle" justifyContent="space-between" alignItems="center">
-            <Grid item>
+            <Grid>
               <Typography variant="h6">{formatMessage("pricelistForm.table.title")}</Typography>
             </Grid>
           </Grid>
           <Grid container>
-            <Grid item xs={12} className="item">
+            <Grid size={12} className="item">
               <Table
                 error={details.error}
                 fetching={details.isFetching}
@@ -177,4 +177,5 @@ const PricelistDetailsPanel = (props) => {
 
 const enhance = combine(withModulesManager);
 
+export { StyledPricelistDetailsPanel };
 export default enhance(PricelistDetailsPanel);

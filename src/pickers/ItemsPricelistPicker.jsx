@@ -28,4 +28,5 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchItemsPriceLists }, dispatch);
 };
 
+export { ItemsPricelistPicker };
 export default injectIntl(connect(null, mapDispatchToProps)(ItemsPricelistPicker));

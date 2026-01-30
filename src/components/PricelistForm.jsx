@@ -71,4 +71,5 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ clearMedicalPricelists }, dispatch);
 };
 
+export { PricelistForm };
 export default withHistory(withModulesManager(connect(mapStateToProps, mapDispatchToProps)(PricelistForm)));

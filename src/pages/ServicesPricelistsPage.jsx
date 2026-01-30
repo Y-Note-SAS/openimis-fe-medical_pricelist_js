@@ -93,4 +93,5 @@ const ServicesPricelistsPage = (props) => {
 
 const enhance = combine(withModulesManager, withHistory);
 
+export { StyledServicesPricelistsPage };
 export default enhance(ServicesPricelistsPage);

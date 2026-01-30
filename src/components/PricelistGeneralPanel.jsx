@@ -55,7 +55,7 @@ class PricelistGeneralPanel extends FormPanel {
     return (
       <StyledPricelistGeneralPanel>
         <Grid container>
-          <Grid item xs={4} className="item">
+          <Grid size={4} className="item">
             <ValidatedTextInput
               action={servicesOrItems ? medicalServicesValidationCheck : medicalItemsValidationCheck}
               clearAction={servicesOrItems ? medicalServicesValidationClear : medicalItemsValidationClear}
@@ -74,7 +74,7 @@ class PricelistGeneralPanel extends FormPanel {
               value={edited?.name ?? ""}
             />
           </Grid>
-          <Grid item xs={3} className="item">
+          <Grid size={3} className="item">
             <PublishedComponent
               pubRef="location.RegionPicker"
               value={region}
@@ -83,7 +83,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onRegionChange}
             />
           </Grid>
-          <Grid item xs={3} className="item">
+          <Grid size={3} className="item">
             <PublishedComponent
               region={region}
               value={district}
@@ -93,7 +93,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onDistrictChange}
             />
           </Grid>
-          <Grid item xs={2} className="item">
+          <Grid size={2} className="item">
             <PublishedComponent
               pubRef="core.DatePicker"
               value={edited?.pricelistDate}
@@ -122,6 +122,7 @@ const mapStateToProps = (state) => ({
   activeType: state.medical_pricelist?.services?.type || state.medical_pricelist?.items?.type,
 });
 
+export { StyledPricelistGeneralPanel };
 export default withHistory(
   withModulesManager(connect(mapStateToProps)(PricelistGeneralPanel))
 );

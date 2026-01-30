@@ -45,7 +45,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.name"
           field={
-            <Grid item xs={4} className="item">
+            <Grid size={4} className="item">
               <TextInput
                 module="medical_pricelist"
                 name="name"
@@ -60,7 +60,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.region"
           field={
-            <Grid item xs={3} className="item">
+            <Grid size={3} className="item">
               <PublishedComponent
                 pubRef="location.RegionPicker"
                 value={filters?.region?.value}
@@ -74,7 +74,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.district"
           field={
-            <Grid item xs={3} className="item">
+            <Grid size={3} className="item">
               <PublishedComponent
                 pubRef="location.DistrictPicker"
                 value={filters?.district?.value}
@@ -90,7 +90,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.date"
           field={
-            <Grid item xs={2} className="item">
+            <Grid size={2} className="item">
               <PublishedComponent
                 pubRef="core.DatePicker"
                 value={filters?.date?.value}
@@ -113,7 +113,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.showHistory"
           field={
-            <Grid item xs={6} className="item">
+            <Grid size={6} className="item">
               <FormControlLabel
                 control={
                   <Checkbox
@@ -142,4 +142,5 @@ const PricelistsFilter = (props) => {
 
 const enhance = combine(withModulesManager);
 
+export { StyledPricelistsFilter };
 export default enhance(PricelistsFilter);
