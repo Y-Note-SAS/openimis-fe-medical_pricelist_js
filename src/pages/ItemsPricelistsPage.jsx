@@ -17,9 +17,9 @@ import { fetchItemsPricelistsSummaries, deleteItemsPricelist } from "../actions"
 import { RIGHT_ITEMS_PRICELISTS_DELETE, RIGHT_ITEMS_PRICELISTS_ADD, MODULE_NAME} from "../constants";
 
 const StyledItemsPricelistsPage = styled('div')(({ theme }) => ({
-  ...theme.page,
+  ...theme.page ?? {},
   paddingInline: 16,
-  '& .fab': theme.fab,
+  '& .fab': theme.fab ?? {},
 }));
 
 const ItemsPricelistsPage = (props) => {

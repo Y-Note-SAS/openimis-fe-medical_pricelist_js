@@ -6,9 +6,9 @@ import PriceOverruleDialog from "./PriceOverruleDialog";
 import SelectAllButton from "./PricelistSelectAllButton" 
 
 const StyledPricelistDetailsPanel = styled('div')(({ theme }) => ({
-  '& .paper': theme.paper.paper,
-  '& .item': theme.paper.item,
-  '& .tableTitle': theme.table.title,
+  '& .paper': theme.paper?.paper ?? {},
+  '& .item': theme.paper?.item ?? {},
+  '& .tableTitle': theme.table?.title ?? {},
   '& .checkbox': {
     padding: theme.spacing(0),
   },

@@ -17,8 +17,8 @@ import { fetchServicesPricelistsSummaries, deleteServicesPricelist } from "../ac
 import { RIGHT_SERVICES_PRICELISTS_DELETE, RIGHT_SERVICES_PRICELISTS_ADD, MODULE_NAME } from "../constants";
 
 const StyledServicesPricelistsPage = styled('div')(({ theme }) => ({
-  ...theme.page,
-  '& .fab': theme.fab,
+  ...theme.page ?? {},
+  '& .fab': theme.fab ?? {},
 }));
 
 const ServicesPricelistsPage = (props) => {

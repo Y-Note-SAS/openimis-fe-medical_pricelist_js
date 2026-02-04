@@ -15,8 +15,8 @@ import {
 import { RIGHT_SERVICES_PRICELISTS_EDIT } from "../constants";
 
 const StyledServicesPriceListDetailsPage = styled('div')(({ theme }) => ({
-  ...theme.page,
-  '&.locked': theme.page.locked,
+  ...theme.page ?? {},
+  '&.locked': theme.page?.locked ?? {},
 }));
 
 const ServicesPriceListDetailsPage = (props) => {

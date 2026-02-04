@@ -15,7 +15,7 @@ const formatLocation = (location) => {
 };
 
 const StyledPricelistsSearcher = styled('div')(({ theme }) => ({
-  '& .horizontalButtonContainer': theme.buttonContainer.horizontal,
+  '& .horizontalButtonContainer': theme.buttonContainer?.horizontal ?? {},
 }));
 
 const PricelistsSearcher = (props) => {

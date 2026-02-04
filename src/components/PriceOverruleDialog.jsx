@@ -4,8 +4,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import { combine, FormattedMessage, NumberInput } from "@openimis/fe-core";
 
 const StyledPriceOverruleDialog = styled('div')(({ theme }) => ({
-  '& .primaryButton': theme.dialog.primaryButton,
-  '& .secondaryButton': theme.dialog.secondaryButton,
+  '& .primaryButton': theme.dialog?.primaryButton ?? {},
+  '& .secondaryButton': theme.dialog?.secondaryButton ?? {},
 }));
 
 const PriceOverruleDialog = (props) => {

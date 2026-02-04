@@ -19,7 +19,7 @@ import {
 import { SERVICES_PRICELIST_TYPE } from "../constants";
 
 const StyledPricelistGeneralPanel = styled('div')(({ theme }) => ({
-  '& .item': theme.paper.item,
+  '& .item': theme.paper?.item ?? {},
 }));
 
 class PricelistGeneralPanel extends FormPanel {
