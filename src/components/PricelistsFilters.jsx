@@ -7,6 +7,8 @@ import {
   useTranslations,
   withModulesManager,
   useDebounceCb,
+  GRID_RESPONSIVE_STANDARD,
+  GRID_RESPONSIVE_SMALL,
 } from "@openimis/fe-core";
 import { FormControlLabel, Grid, Checkbox } from "@mui/material";
 import { styled } from "@mui/material/styles";
@@ -45,7 +47,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.name"
           field={
-            <Grid size={4} className="item">
+            <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
               <TextInput
                 module="medical_pricelist"
                 name="name"
@@ -60,7 +62,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.region"
           field={
-            <Grid size={3} className="item">
+            <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
               <PublishedComponent
                 pubRef="location.RegionPicker"
                 value={filters?.region?.value}
@@ -74,7 +76,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.district"
           field={
-            <Grid size={3} className="item">
+            <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
               <PublishedComponent
                 pubRef="location.DistrictPicker"
                 value={filters?.district?.value}
@@ -90,7 +92,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.date"
           field={
-            <Grid size={2} className="item">
+            <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
               <PublishedComponent
                 pubRef="core.DatePicker"
                 value={filters?.date?.value}
@@ -113,7 +115,7 @@ const PricelistsFilter = (props) => {
           module="medical_pricelist"
           id="medicalPricelistsFilter.showHistory"
           field={
-            <Grid size={6} className="item">
+            <Grid size={GRID_RESPONSIVE_SMALL} className="item">
               <FormControlLabel
                 control={
                   <Checkbox
