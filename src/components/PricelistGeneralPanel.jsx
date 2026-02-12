@@ -3,10 +3,11 @@ import { connect } from "react-redux";
 
 import { styled } from "@mui/material/styles";
 import { Grid } from "@mui/material";
+import _debounce from "lodash/debounce";
 
-import { 
-  FormPanel, withHistory, withModulesManager, 
-  PublishedComponent, ValidatedTextInput 
+import {
+  FormPanel, withHistory, withModulesManager,
+  PublishedComponent, ValidatedTextInput, TextInput, useDebounceCb
 } from "@openimis/fe-core";
 import {
   medicalServicesValidationCheck,
@@ -23,6 +24,12 @@ const StyledPricelistGeneralPanel = styled('div')(({ theme }) => ({
 }));
 
 class PricelistGeneralPanel extends FormPanel {
+  constructor(props) {
+    super(props);
+    const debounceTime = props.modulesManager.getConf("fe-medical_pricelist", "debounceTime", 500);
+    this.triggerDebounceName = _debounce(this.onNameChange, debounceTime);
+    this.triggerDebounceCode = _debounce(this.onCodeChange, debounceTime);
+  }
   onRegionChange = (value) => {
     this.updateAttribute("location", value);
   };
@@ -35,6 +42,12 @@ class PricelistGeneralPanel extends FormPanel {
     const { savedServiceName, savedItemName } = this.props;
     const shouldValidate = inputValue !== (savedServiceName || savedItemName);
     return shouldValidate;
+  };
+  onCodeChange = (value) => {
+    this.props.onChangeFilters([{ id: "code", value, filter: `code_Icontains: "${value}"` }]);
+  };
+  onNameChange = (value) => {
+    this.props.onChangeFilters([{ id: "name", value, filter: `name_Icontains: "${value}"` }]);
   };
 
   render() {
@@ -81,6 +94,23 @@ class PricelistGeneralPanel extends FormPanel {
               readOnly={readOnly}
               withNull={false}
               onChange={this.onRegionChange}
+            />
+          </Grid>
+          <Grid item xs={2} className={classes.item}>
+            <TextInput
+              module="medical"
+              label={`medical_pricelist.table.code`}
+              value={edited?.code ?? ""}
+              onChange={this.triggerDebounceCode}
+            />
+          </Grid>
+          <Grid item xs={2} className={classes.item}>
+            <TextInput
+              module="insuree"
+              label={!!this.props.activeType && this.props.activeType === 'items' ?  `medical_pricelist.table.medicalItemName`: `medical_pricelist.table.medicalServiceName`}
+              value={edited?.serviceName ?? ""}
+              onChange={this.triggerDebounceName}
+              readOnly={readOnly}
             />
           </Grid>
           <Grid size={3} className="item">
