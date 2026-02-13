@@ -6,8 +6,14 @@ import { Grid } from "@mui/material";
 import _debounce from "lodash/debounce";
 
 import {
-  FormPanel, withHistory, withModulesManager,
-  PublishedComponent, ValidatedTextInput, TextInput, useDebounceCb
+  FormPanel,
+  withHistory,
+  withModulesManager,
+  PublishedComponent,
+  ValidatedTextInput,
+  TextInput,
+  useDebounceCb,
+  GRID_RESPONSIVE_STANDARD,
 } from "@openimis/fe-core";
 import {
   medicalServicesValidationCheck,
@@ -19,8 +25,8 @@ import {
 } from "../actions";
 import { SERVICES_PRICELIST_TYPE } from "../constants";
 
-const StyledPricelistGeneralPanel = styled('div')(({ theme }) => ({
-  '& .item': theme.paper?.item ?? {},
+const StyledPricelistGeneralPanel = styled("div")(({ theme }) => ({
+  "& .item": theme.paper?.item ?? {},
 }));
 
 class PricelistGeneralPanel extends FormPanel {
@@ -68,7 +74,7 @@ class PricelistGeneralPanel extends FormPanel {
     return (
       <StyledPricelistGeneralPanel>
         <Grid container>
-          <Grid size={4} className="item">
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <ValidatedTextInput
               action={servicesOrItems ? medicalServicesValidationCheck : medicalItemsValidationCheck}
               clearAction={servicesOrItems ? medicalServicesValidationClear : medicalItemsValidationClear}
@@ -87,7 +93,7 @@ class PricelistGeneralPanel extends FormPanel {
               value={edited?.name ?? ""}
             />
           </Grid>
-          <Grid size={3} className="item">
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <PublishedComponent
               pubRef="location.RegionPicker"
               value={region}
@@ -96,7 +102,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onRegionChange}
             />
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+          <Grid className="item" xs={GRID_RESPONSIVE_STANDARD}>
             <TextInput
               module="medical"
               label={`medical_pricelist.table.code`}
@@ -104,16 +110,20 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.triggerDebounceCode}
             />
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+          <Grid className="item" xs={GRID_RESPONSIVE_STANDARD}>
             <TextInput
               module="insuree"
-              label={!!this.props.activeType && this.props.activeType === 'items' ?  `medical_pricelist.table.medicalItemName`: `medical_pricelist.table.medicalServiceName`}
+              label={
+                !!this.props.activeType && this.props.activeType === "items"
+                  ? `medical_pricelist.table.medicalItemName`
+                  : `medical_pricelist.table.medicalServiceName`
+              }
               value={edited?.serviceName ?? ""}
               onChange={this.triggerDebounceName}
               readOnly={readOnly}
             />
           </Grid>
-          <Grid size={3} className="item">
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <PublishedComponent
               region={region}
               value={district}
@@ -123,7 +133,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onDistrictChange}
             />
           </Grid>
-          <Grid size={2} className="item">
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <PublishedComponent
               pubRef="core.DatePicker"
               value={edited?.pricelistDate}
@@ -153,6 +163,4 @@ const mapStateToProps = (state) => ({
 });
 
 export { StyledPricelistGeneralPanel };
-export default withHistory(
-  withModulesManager(connect(mapStateToProps)(PricelistGeneralPanel))
-);
+export default withHistory(withModulesManager(connect(mapStateToProps)(PricelistGeneralPanel)));
