@@ -17,7 +17,6 @@ const styles = (theme) => ({
   page: theme.page,
   locked: theme.page.locked,
 });
-import { formatGraphQLFilters } from "../utils";
 
 const ItemsPriceListDetailsPage = (props) => {
   const {
@@ -38,7 +37,6 @@ const ItemsPriceListDetailsPage = (props) => {
   const [isLocked, setLocked] = useState(false);
   const [resetKey, setResetKey] = useState(null);
   const [pricelist, setPricelist] = useState({});
-  const [filters, setFilters] = useState([])
 
   useEffect(() => {
     if (match.params.price_list_id) {
@@ -54,31 +52,6 @@ const ItemsPriceListDetailsPage = (props) => {
     }
   }, [props.pricelist]);
 
-  useEffect(() => {
-    if (filters.length > 0) {
-      fetchDetails();
-    }
-  }, [filters]);
-
-  const onChangeFilters = (newFilters) => {
-    setFilters(prevFilters => {
-      const updatedFilters = [...prevFilters];
-
-      newFilters.forEach(newFilter => {
-        const existingIndex = updatedFilters.findIndex(f => f.id === newFilter.id);
-
-        if (existingIndex >= 0) {
-          // Si le filtre existe déjà, le met à jour
-          updatedFilters[existingIndex] = newFilter;
-        } else {
-          // Sinon, ajoute le nouveau filtre
-          updatedFilters.push(newFilter);
-        }
-      });
-
-      return updatedFilters;
-    });
-  };
   const onSave = (pricelist) => {
     setLocked(true);
     if (pricelist.uuid) {
@@ -101,9 +74,8 @@ const ItemsPriceListDetailsPage = (props) => {
     setResetKey(Date.now());
   };
 
-  const fetchDetails = () => {
-    const formattedFilters = formatGraphQLFilters(filters);
-    fetchItemsPricelistDetails(modulesManager, formattedFilters, pricelist?.id);
+  const fetchDetails = (filters) => {
+    fetchItemsPricelistDetails(modulesManager, filters, pricelist?.id);
   };
 
   return (
@@ -121,7 +93,6 @@ const ItemsPriceListDetailsPage = (props) => {
             onReset={onReset}
             details={details}
             fetchDetails={fetchDetails}
-            onChangeFilters={onChangeFilters}
           />
         )}
       </ErrorBoundary>
