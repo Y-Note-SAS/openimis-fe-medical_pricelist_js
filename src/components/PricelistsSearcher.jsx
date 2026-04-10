@@ -2,7 +2,10 @@ import React, { useCallback, useState } from "react";
 
 import { Tooltip, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { Tab as TabIcon, Delete as DeleteIcon } from "@mui/icons-material";
+import { GetIconComponent } from "@openimis/fe-core";
+const TabIcon = GetIconComponent("Tab")
+const DeleteIcon = GetIconComponent("Delete")
+
 
 import { combine, useTranslations, ConfirmDialog, Searcher, withModulesManager } from "@openimis/fe-core";
 import PricelistsFilters from "./PricelistsFilters";

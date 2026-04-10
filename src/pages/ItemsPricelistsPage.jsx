@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { styled } from "@mui/material/styles";
 import { Fab } from "@mui/material";
-import AddIcon from "@mui/icons-material/Add";
 import {
   withHistory,
   historyPush,
@@ -11,10 +10,12 @@ import {
   useTranslations,
   withTooltip,
   clearCurrentPaginationPage,
+  GetIconComponent,
 } from "@openimis/fe-core";
 import PricelistsSearcher from "../components/PricelistsSearcher";
 import { fetchItemsPricelistsSummaries, deleteItemsPricelist } from "../actions";
 import { RIGHT_ITEMS_PRICELISTS_DELETE, RIGHT_ITEMS_PRICELISTS_ADD, MODULE_NAME} from "../constants";
+const AddIcon = GetIconComponent("Add")
 
 const StyledItemsPricelistsPage = styled('div')(({ theme }) => ({
   ...theme.page ?? {},
