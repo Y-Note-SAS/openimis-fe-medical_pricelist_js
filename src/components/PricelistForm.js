@@ -21,7 +21,6 @@ const PricelistForm = (props) => {
     details,
     isValid,
     clearMedicalPricelists,
-    onChangeFilters
   } = props;
 
   const canSave = () => pricelist.name && pricelist.pricelistDate && !pricelist.validityTo && isValid === true;
@@ -50,7 +49,6 @@ const PricelistForm = (props) => {
         details={details}
         fetchDetails={fetchDetails}
         openDirty={onSave}
-        onChangeFilters={onChangeFilters}
         actions={[
           {
             doIt: onReset,
