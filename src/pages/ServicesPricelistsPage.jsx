@@ -1,8 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Fab } from "@material-ui/core";
-import AddIcon from "@material-ui/icons/Add";
+import { styled } from "@mui/material/styles";
+import { Fab } from "@mui/material";
 import {
   withHistory,
   historyPush,
@@ -11,41 +10,41 @@ import {
   useTranslations,
   withTooltip,
   clearCurrentPaginationPage,
+  GetIconComponent,
 } from "@openimis/fe-core";
 import PricelistsSearcher from "../components/PricelistsSearcher";
-import { fetchItemsPricelistsSummaries, deleteItemsPricelist } from "../actions";
-import { RIGHT_ITEMS_PRICELISTS_DELETE, RIGHT_ITEMS_PRICELISTS_ADD, MODULE_NAME} from "../constants";
+import { fetchServicesPricelistsSummaries, deleteServicesPricelist } from "../actions";
+import { RIGHT_SERVICES_PRICELISTS_DELETE, RIGHT_SERVICES_PRICELISTS_ADD, MODULE_NAME } from "../constants";
+const AddIcon = GetIconComponent("Add")
 
-const styles = (theme) => ({
-  page: {
-    ...theme.page,
-    paddingInline: 16,
-  },
-  fab: theme.fab,
-});
+const StyledServicesPricelistsPage = styled('div')(({ theme }) => ({
+  ...theme.page ?? {},
+  '& .fab': theme.fab ?? {},
+}));
 
-const ItemsPricelistsPage = (props) => {
-  const { classes, modulesManager, history } = props;
+const ServicesPricelistsPage = (props) => {
+  const { modulesManager, history } = props;
   const { formatMessage, formatMessageWithValues } = useTranslations("medical_pricelist", modulesManager);
   const rights = useSelector((state) => state.core.user?.i_user?.rights ?? []);
   const module = useSelector((state) => state.core?.savedPagination?.module);
-  const data = useSelector((state) => state.medical_pricelist.summaries.items);
+  const data = useSelector((state) => state.medical_pricelist.summaries.services);
   const dispatch = useDispatch();
+
   const onDoubleClick = (row, newTab = false) => {
-    historyPush(modulesManager, history, "medical_pricelist.itemsPricelists", [row.id], newTab);
+    historyPush(modulesManager, history, "medical_pricelist.servicesPricelistDetails", [row.id], newTab);
   };
 
   const onAdd = () => {
-    historyPush(modulesManager, history, "medical_pricelist.newItemsPricelist");
+    historyPush(modulesManager, history, "medical_pricelist.newServicesPricelist");
   };
 
   const onFiltersChange = (filters) => {
-    dispatch(fetchItemsPricelistsSummaries(modulesManager, filters));
+    dispatch(fetchServicesPricelistsSummaries(modulesManager, filters));
   };
 
   const onDelete = (pricelist) => {
     dispatch(
-      deleteItemsPricelist(
+      deleteServicesPricelist(
         modulesManager,
         pricelist.uuid,
         formatMessageWithValues("deletePricelist.mutationLabel", { name: pricelist.name })
@@ -68,7 +67,7 @@ const ItemsPricelistsPage = (props) => {
   }, [module]);
 
   return (
-    <div className={classes.page}>
+    <StyledServicesPricelistsPage>
       <PricelistsSearcher
         onFiltersChange={onFiltersChange}
         onDelete={onDelete}
@@ -76,23 +75,24 @@ const ItemsPricelistsPage = (props) => {
         pageInfo={data.pageInfo}
         isFetching={data.isFetching}
         isFetched={data.isFetched}
-        canDelete={(pricelist) => rights.includes(RIGHT_ITEMS_PRICELISTS_DELETE) && !pricelist.validTo}
+        canDelete={(pricelist) => rights.includes(RIGHT_SERVICES_PRICELISTS_DELETE) && !pricelist.validTo}
         onDoubleClick={onDoubleClick}
-        cacheFiltersKey="medicalItemsPriceListsPageFiltersCache"
+        cacheFiltersKey="medicalServicesPriceListsPageFiltersCache"
       />
-      {rights.includes(RIGHT_ITEMS_PRICELISTS_ADD) &&
+      {rights.includes(RIGHT_SERVICES_PRICELISTS_ADD) &&
         withTooltip(
-          <div className={classes.fab}>
+          <div className="fab">
             <Fab color="primary" onClick={onAdd}>
               <AddIcon />
             </Fab>
           </div>,
           formatMessage("addNewPriceListTooltip")
         )}
-    </div>
+    </StyledServicesPricelistsPage>
   );
 };
 
-const enhance = combine(withModulesManager, withHistory, withTheme, withStyles(styles));
+const enhance = combine(withModulesManager, withHistory);
 
-export default enhance(ItemsPricelistsPage);
+export { StyledServicesPricelistsPage };
+export default enhance(ServicesPricelistsPage);

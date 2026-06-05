@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import clsx from "clsx";
 import { bindActionCreators } from "redux";
 import { combine, withHistory, withModulesManager, historyPush, ProgressOrError } from "@openimis/fe-core";
-import { withStyles, withTheme } from "@material-ui/core/styles";
+import { styled } from "@mui/material/styles";
 import { ErrorBoundary, useTranslations } from "@openimis/fe-core";
 import PricelistForm from "../components/PricelistForm";
 import {
@@ -13,14 +13,14 @@ import {
   fetchItemsPricelistDetails,
 } from "../actions";
 import { RIGHT_ITEMS_PRICELISTS_EDIT } from "../constants";
-const styles = (theme) => ({
-  page: theme.page,
-  locked: theme.page.locked,
-});
+
+const StyledItemsPriceListDetailsPage = styled('div')(({ theme }) => ({
+  ...theme.page ?? {},
+  '&.locked': theme.page?.locked ?? {},
+}));
 
 const ItemsPriceListDetailsPage = (props) => {
   const {
-    classes,
     isFetching,
     error,
     match,
@@ -79,7 +79,7 @@ const ItemsPriceListDetailsPage = (props) => {
   };
 
   return (
-    <div className={clsx(classes.page, pricelist.validityTo && classes.locked)}>
+    <StyledItemsPriceListDetailsPage className={clsx(pricelist.validityTo && "locked")}>
       <ErrorBoundary>
         <ProgressOrError progress={isFetching} error={error} />
         {!isFetching && (
@@ -96,7 +96,7 @@ const ItemsPriceListDetailsPage = (props) => {
           />
         )}
       </ErrorBoundary>
-    </div>
+    </StyledItemsPriceListDetailsPage>
   );
 };
 
@@ -122,10 +122,9 @@ const mapDispatchToProps = (dispatch) =>
   );
 
 const enhance = combine(
-  withTheme,
-  withStyles(styles),
   withHistory,
   withModulesManager,
   connect(mapStateToProps, mapDispatchToProps)
 );
+export { StyledItemsPriceListDetailsPage };
 export default enhance(ItemsPriceListDetailsPage);

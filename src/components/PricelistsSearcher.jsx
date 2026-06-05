@@ -1,8 +1,11 @@
 import React, { useCallback, useState } from "react";
 
-import { Tooltip, Button } from "@material-ui/core";
-import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Tab as TabIcon, Delete as DeleteIcon } from "@material-ui/icons";
+import { Tooltip, Button } from "@mui/material";
+import { styled } from "@mui/material/styles";
+import { GetIconComponent } from "@openimis/fe-core";
+const TabIcon = GetIconComponent("Tab")
+const DeleteIcon = GetIconComponent("Delete")
+
 
 import { combine, useTranslations, ConfirmDialog, Searcher, withModulesManager } from "@openimis/fe-core";
 import PricelistsFilters from "./PricelistsFilters";
@@ -14,15 +17,14 @@ const formatLocation = (location) => {
   return location ? `${location.code} - ${location.name}` : "";
 };
 
-const styles = (theme) => ({
-  horizontalButtonContainer: theme.buttonContainer.horizontal,
-});
+const StyledPricelistsSearcher = styled('div')(({ theme }) => ({
+  '& .horizontalButtonContainer': theme.buttonContainer?.horizontal ?? {},
+}));
 
 const PricelistsSearcher = (props) => {
   const {
     pageInfo,
     items,
-    classes,
     isFetching,
     isFetched,
     cacheFiltersKey,
@@ -68,7 +70,7 @@ const PricelistsSearcher = (props) => {
       (pricelist) => (filters?.showHistory?.value ? formatDateFromISO(pricelist.validityFrom) : null),
       (pricelist) => (filters?.showHistory?.value ? formatDateFromISO(pricelist.validityTo) : null),
       (pricelist) => (
-        <div className={classes.horizontalButtonContainer}>
+        <div className="horizontalButtonContainer">
           <Tooltip title={formatMessage("openNewTab")}>
             <Button startIcon={<TabIcon />} onClick={() => onDoubleClick(pricelist, true)}>
               {formatMessage("openNewTabButton.buttonText")}
@@ -105,7 +107,7 @@ const PricelistsSearcher = (props) => {
   }, []);
 
   return (
-    <>
+    <StyledPricelistsSearcher>
       {confirmPricelistToDelete && (
         <ConfirmDialog
           confirm={{
@@ -138,10 +140,11 @@ const PricelistsSearcher = (props) => {
         filtersToQueryParams={filtersToQueryParams}
         onDoubleClick={onDoubleClick}
       />
-    </>
+    </StyledPricelistsSearcher>
   );
 };
 
-const enhance = combine(withTheme, withModulesManager, withStyles(styles))
+const enhance = combine(withModulesManager);
 
+export { isRowDisabled };
 export default enhance(PricelistsSearcher);

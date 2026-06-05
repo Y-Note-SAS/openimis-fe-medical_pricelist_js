@@ -1,13 +1,19 @@
 import React from "react";
 import { connect } from "react-redux";
 
-import { withStyles, withTheme } from "@material-ui/core/styles";
-import { Grid } from "@material-ui/core";
+import { styled } from "@mui/material/styles";
+import { Grid } from "@mui/material";
 import _debounce from "lodash/debounce";
 
 import {
-  FormPanel, withHistory, withModulesManager,
-  PublishedComponent, ValidatedTextInput, TextInput, useDebounceCb
+  FormPanel,
+  withHistory,
+  withModulesManager,
+  PublishedComponent,
+  ValidatedTextInput,
+  TextInput,
+  useDebounceCb,
+  GRID_RESPONSIVE_STANDARD,
 } from "@openimis/fe-core";
 import {
   medicalServicesValidationCheck,
@@ -18,11 +24,10 @@ import {
   medicalItemsSetValid,
 } from "../actions";
 import { SERVICES_PRICELIST_TYPE } from "../constants";
-import { first } from "lodash";
 
-const styles = (theme) => ({
-  item: theme.paper.item,
-});
+const StyledPricelistGeneralPanel = styled("div")(({ theme }) => ({
+  "& .item": theme.paper?.item ?? {},
+}));
 
 class PricelistGeneralPanel extends FormPanel {
   constructor(props) {
@@ -55,7 +60,6 @@ class PricelistGeneralPanel extends FormPanel {
 
   render() {
     const {
-      classes,
       readOnly,
       edited,
       isMedicalServiceValid,
@@ -70,9 +74,9 @@ class PricelistGeneralPanel extends FormPanel {
     const district = edited.location?.parent ? edited.location : null;
     const servicesOrItems = activeType === SERVICES_PRICELIST_TYPE;
     return (
-      <>
+      <StyledPricelistGeneralPanel>
         <Grid container>
-          <Grid item xs={4} className={classes.item}>
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <ValidatedTextInput
               action={servicesOrItems ? medicalServicesValidationCheck : medicalItemsValidationCheck}
               clearAction={servicesOrItems ? medicalServicesValidationClear : medicalItemsValidationClear}
@@ -91,7 +95,7 @@ class PricelistGeneralPanel extends FormPanel {
               value={edited?.name ?? ""}
             />
           </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <PublishedComponent
               pubRef="location.RegionPicker"
               value={region}
@@ -100,7 +104,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onRegionChange}
             />
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+          <Grid className="item" xs={GRID_RESPONSIVE_STANDARD}>
             <TextInput
               module="medical"
               label={`medical_pricelist.table.code`}
@@ -108,16 +112,20 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.triggerDebounceCode}
             />
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+          <Grid className="item" xs={GRID_RESPONSIVE_STANDARD}>
             <TextInput
               module="medical_pricelist"
-              label={!!this.props.activeType && this.props.activeType === 'items' ?  `medical_pricelist.table.medicalItemName`: `medical_pricelist.table.medicalServiceName`}
-              value={edited.serviceOrItemName}
+              label={
+                !!this.props.activeType && this.props.activeType === "items"
+                  ? `medical_pricelist.table.medicalItemName`
+                  : `medical_pricelist.table.medicalServiceName`
+              }
+              value={edited?.serviceOrItemName ?? ""}
               onChange={this.triggerDebounceName}
               readOnly={readOnly}
             />
           </Grid>
-          <Grid item xs={3} className={classes.item}>
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <PublishedComponent
               region={region}
               value={district}
@@ -127,7 +135,7 @@ class PricelistGeneralPanel extends FormPanel {
               onChange={this.onDistrictChange}
             />
           </Grid>
-          <Grid item xs={2} className={classes.item}>
+          <Grid size={GRID_RESPONSIVE_STANDARD} className="item">
             <PublishedComponent
               pubRef="core.DatePicker"
               value={edited?.pricelistDate}
@@ -139,7 +147,7 @@ class PricelistGeneralPanel extends FormPanel {
             />
           </Grid>
         </Grid>
-      </>
+      </StyledPricelistGeneralPanel>
     );
   }
 }
@@ -156,6 +164,5 @@ const mapStateToProps = (state) => ({
   activeType: state.medical_pricelist?.services?.type || state.medical_pricelist?.items?.type,
 });
 
-export default withHistory(
-  withModulesManager(connect(mapStateToProps)(withTheme(withStyles(styles)(PricelistGeneralPanel))))
-);
+export { StyledPricelistGeneralPanel };
+export default withHistory(withModulesManager(connect(mapStateToProps)(PricelistGeneralPanel)));

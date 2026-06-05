@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslations } from "@openimis/fe-core";
-import { Button, Box } from "@material-ui/core";
+import { Button, Box } from "@mui/material";
 
 export function SelectAllButton (details, props, edited, onEditedChanged) {
     const {

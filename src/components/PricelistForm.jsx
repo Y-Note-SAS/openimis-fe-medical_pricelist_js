@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 
-import ReplayIcon from "@material-ui/icons/Replay";
 
-import { withHistory, withModulesManager, Form } from "@openimis/fe-core";
+import { GetIconComponent, withHistory, withModulesManager, Form } from "@openimis/fe-core";
 import { clearMedicalPricelists } from "../actions";
 import PricelistGeneralPanel from "./PricelistGeneralPanel";
 import PricelistDetailsPanel from "./PricelistDetailsPanel";
+const ReplayIcon = GetIconComponent("Replay")
 
 const PricelistForm = (props) => {
   const {
@@ -71,4 +71,5 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ clearMedicalPricelists }, dispatch);
 };
 
+export { PricelistForm };
 export default withHistory(withModulesManager(connect(mapStateToProps, mapDispatchToProps)(PricelistForm)));

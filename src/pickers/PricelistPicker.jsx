@@ -118,4 +118,5 @@ class PricelistPicker extends Component {
   }
 }
 
+export { PricelistPicker };
 export default injectIntl(PricelistPicker);
