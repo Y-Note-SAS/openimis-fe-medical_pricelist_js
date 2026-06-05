@@ -18,7 +18,6 @@ const StyledServicesPriceListDetailsPage = styled('div')(({ theme }) => ({
   ...theme.page ?? {},
   '&.locked': theme.page?.locked ?? {},
 }));
-import { formatGraphQLFilters } from "../utils";
 
 const ServicesPriceListDetailsPage = (props) => {
   const {
@@ -38,7 +37,6 @@ const ServicesPriceListDetailsPage = (props) => {
   const [isLocked, setLocked] = useState(false);
   const [resetKey, setResetKey] = useState(null);
   const [pricelist, setPricelist] = useState({});
-  const [filters, setFilters] = useState([])
 
   useEffect(() => {
     if (match.params.price_list_id) {
@@ -54,11 +52,6 @@ const ServicesPriceListDetailsPage = (props) => {
     }
   }, [props.pricelist]);
 
-  useEffect(() => {
-    if (filters.length > 0) {
-      fetchDetails();
-    }
-  }, [filters]);
   const onSave = (pricelist) => {
     setLocked(true);
     if (pricelist.uuid) {
@@ -81,30 +74,8 @@ const ServicesPriceListDetailsPage = (props) => {
     setResetKey(Date.now());
   };
 
-
-
-  const fetchDetails = () => {
-    const formattedFilters = formatGraphQLFilters(filters);
-    fetchServicesPricelistDetails(modulesManager, formattedFilters, pricelist?.id);
-  };
-  const onChangeFilters = (newFilters) => {
-    setFilters(prevFilters => {
-      const updatedFilters = [...prevFilters];
-
-      newFilters.forEach(newFilter => {
-        const existingIndex = updatedFilters.findIndex(f => f.id === newFilter.id);
-
-        if (existingIndex >= 0) {
-          // Si le filtre existe déjà, le met à jour
-          updatedFilters[existingIndex] = newFilter;
-        } else {
-          // Sinon, ajoute le nouveau filtre
-          updatedFilters.push(newFilter);
-        }
-      });
-
-      return updatedFilters;
-    });
+  const fetchDetails = (filters) => {
+    fetchServicesPricelistDetails(modulesManager, filters, pricelist?.id);
   };
 
   return (
@@ -122,7 +93,6 @@ const ServicesPriceListDetailsPage = (props) => {
             onReset={onReset}
             details={details}
             fetchDetails={fetchDetails}
-            onChangeFilters={onChangeFilters}
           />
         )}
       </ErrorBoundary>
