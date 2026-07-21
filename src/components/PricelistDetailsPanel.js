@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withTheme, withStyles } from "@material-ui/core/styles";
-import { Table, withModulesManager, combine, useTranslations, ErrorBoundary } from "@openimis/fe-core";
-import { Paper, Grid, Typography, Checkbox, Button} from "@material-ui/core";
+import { Table, withModulesManager, combine, useTranslations, ErrorBoundary, ControlledField, TextInput } from "@openimis/fe-core";
+import { Paper, Grid, Typography, Checkbox, Button } from "@material-ui/core";
 import PriceOverruleDialog from "./PriceOverruleDialog";
 import SelectAllButton from "./PricelistSelectAllButton" 
 
@@ -14,6 +14,14 @@ const styles = (theme) => ({
   },
   editDetailBtn: {
     padding: 0,
+  },
+  filtersContainer: {
+    padding: theme.spacing(2),
+    paddingBottom: 0,
+    alignItems: 'center',
+  },
+  filterField: {
+    maxWidth: '400',
   },
 });
 
@@ -46,6 +54,10 @@ const PricelistDetailsPanel = (props) => {
   const { formatMessage } = useTranslations("medical_pricelist", modulesManager);
   const [pagination, setPagination] = useState({ page: 0, afterCursor: null, beforeCursor: null });
   const [editedDetail, setEditedDetail] = useState(null);
+  const [filters, setFilters] = useState({ code: '', name: '' });
+  
+  // Debounced filter values
+  const [debouncedFilters, setDebouncedFilters] = useState({ code: '', name: '' });
   
   const ButtonHeader = (_) => {
     return SelectAllButton(details, props, edited, onEditedChanged, edited)
@@ -53,24 +65,52 @@ const PricelistDetailsPanel = (props) => {
 
   HEADERS[0] = ButtonHeader
 
+  // Debounce logic
   useEffect(() => {
-    const filters = [];
+    const timer = setTimeout(() => {
+      setDebouncedFilters({
+        code: filters.code.trim(),
+        name: filters.name.trim(),
+      });
+    }, 500);
+
+    return () => clearTimeout(timer);
+  }, [filters.code, filters.name]);
+
+  // Reset pagination when filters change
+  useEffect(() => {
+    setPagination({ page: 0, afterCursor: null, beforeCursor: null });
+  }, [debouncedFilters]);
+
+  useEffect(() => {
+    const filterParams = [];
+    
+    // Add pagination parameters
     if (pagination.afterCursor) {
-      filters.push(`first: ${pageSize}`, `after: "${pagination.afterCursor}"`);
+      filterParams.push(`first: ${pageSize}`, `after: "${pagination.afterCursor}"`);
     } else if (pagination.beforeCursor) {
-      filters.push(`last: ${pageSize}`, `before: "${pagination.beforeCursor}"`);
+      filterParams.push(`last: ${pageSize}`, `before: "${pagination.beforeCursor}"`);
     } else {
-      filters.push(`first: ${pageSize}`);
+      filterParams.push(`first: ${pageSize}`);
     }
 
-    fetchDetails(filters);
-  }, [pagination.page, edited_id]);
+    // Add code filter if present
+    if (debouncedFilters.code) {
+      filterParams.push(`code_Icontains: "${debouncedFilters.code}"`);
+    }
+
+    // Add name filter if present
+    if (debouncedFilters.name) {
+      filterParams.push(`name_Icontains: "${debouncedFilters.name}"`);
+    }
+
+    fetchDetails(filterParams);
+  }, [pagination.page, edited_id, debouncedFilters]);
 
   const onDetailChange = (event, item) => {
     if (event.target.checked) {
       onEditedChanged({
         ...edited,
-        // It's useless to add the item to the list of added items if it is already marked as active
         addedDetails: !item.isActive ? (edited.addedDetails ?? []).concat(item.uuid) : edited.addedDetails,
         removedDetails: edited.removedDetails && edited.removedDetails.filter((x) => x !== item.uuid),
       });
@@ -93,6 +133,13 @@ const PricelistDetailsPanel = (props) => {
       },
     });
     setEditedDetail(null);
+  };
+
+  const handleFilterChange = (field) => (value) => {
+    setFilters(prev => ({
+      ...prev,
+      [field]: value
+    }));
   };
 
   return (
@@ -119,6 +166,39 @@ const PricelistDetailsPanel = (props) => {
             </Grid>
           </Grid>
           <Grid container>
+            {/* Filters - same line */}
+            <Grid item xs={12}>
+              <Grid container spacing={2} className={classes.filtersContainer}>
+                <Grid item xs={12} sm={6} md={4} className={classes.filterField}>
+                  <ControlledField
+                    module="medical_pricelist"
+                    name="codeFilter"
+                    label="medical_pricelist.detailsFilter.code"
+                    field={
+                      <TextInput
+                        value={filters.code}
+                        onChange={handleFilterChange('code')}
+                        placeholder={formatMessage("medical_pricelist.detailsFilter.code")}
+                      />
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6} md={4} className={classes.filterField}>
+                  <ControlledField
+                    module="medical_pricelist"
+                    name="nameFilter"
+                    label="medical_pricelist.detailsFilter.name"
+                    field={
+                      <TextInput
+                        value={filters.name}
+                        onChange={handleFilterChange('name')}
+                        placeholder={formatMessage("medical_pricelist.detailsFilter.name")}
+                      />
+                    }
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
             <Grid item xs={12} className={classes.item}>
               <Table
                 error={details.error}
@@ -159,15 +239,15 @@ const PricelistDetailsPanel = (props) => {
                 page={pagination.page}
                 onChangePage={(_, page) =>
                   setPagination({
-                    afterCursor: page > pagination.page ? details.pageInfo.endCursor : null, // We'll load the next page
-                    beforeCursor: page < pagination.page ? details.pageInfo.startCursor : null, // We'll load the previous page
+                    afterCursor: page > pagination.page ? details.pageInfo.endCursor : null,
+                    beforeCursor: page < pagination.page ? details.pageInfo.startCursor : null,
                     page,
                   })
                 }
                 count={details.pageInfo.totalCount}
                 rowsPerPage={pageSize}
                 rowsPerPageOptions={[pageSize]}
-              ></Table>
+              />
             </Grid>
           </Grid>
         </Paper>
