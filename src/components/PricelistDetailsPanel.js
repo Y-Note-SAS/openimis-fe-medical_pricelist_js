@@ -176,9 +176,10 @@ const PricelistDetailsPanel = (props) => {
                     label="medical_pricelist.detailsFilter.code"
                     field={
                       <TextInput
+                        label={formatMessage("medical_pricelist.detailsFilter.code.label")}
                         value={filters.code}
                         onChange={handleFilterChange('code')}
-                        placeholder={formatMessage("medical_pricelist.detailsFilter.code")}
+                        placeholder={formatMessage("medical_pricelist.detailsFilter.code.placeholder")}
                       />
                     }
                   />
@@ -190,9 +191,10 @@ const PricelistDetailsPanel = (props) => {
                     label="medical_pricelist.detailsFilter.name"
                     field={
                       <TextInput
+                        label={formatMessage("medical_pricelist.detailsFilter.name.label")}
                         value={filters.name}
                         onChange={handleFilterChange('name')}
-                        placeholder={formatMessage("medical_pricelist.detailsFilter.name")}
+                        placeholder={formatMessage("medical_pricelist.detailsFilter.name.placeholder")}
                       />
                     }
                   />
