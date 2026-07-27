@@ -47,7 +47,7 @@ const PricelistDetailsPanel = (props) => {
   const [editedDetail, setEditedDetail] = useState(null);
   
   const ButtonHeader = (_) => {
-    return SelectAllButton(details, props, edited, onEditedChanged, edited)
+    return SelectAllButton(details, props, edited, onEditedChanged)
   }
 
   HEADERS[0] = ButtonHeader
