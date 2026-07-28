@@ -1,12 +1,8 @@
 import React from "react";
-import { useTranslations } from "@openimis/fe-core";
+import { formatMessage } from "@openimis/fe-core";
 import { Button, Box } from "@mui/material";
 
 export function SelectAllButton (details, props, edited, onEditedChanged) {
-    const {
-      modulesManager,
-    } = props;
-    const { formatMessage } = useTranslations("medical_pricelist", modulesManager);
 
     const page_details_uuids = details.items ? details.items.map(d => d.uuid) : []
     const current_added_details = edited.addedDetails? edited.addedDetails : []
@@ -41,7 +37,10 @@ export function SelectAllButton (details, props, edited, onEditedChanged) {
           <Box flexGrow={1}>
           <Box display="flex" justifyContent="flex-end">
           <Button onClick={() => selectAllEdited()} color="primary" disabled={props.readOnly} fullWidth>
-        {areNotAllSelected ? formatMessage("medical_pricelist.table.selectAll") : formatMessage("medical_pricelist.table.unselectAll")}
+        {areNotAllSelected ? 
+          formatMessage(props.intl, "medical_pricelist","medical_pricelist.table.selectAll") : 
+          formatMessage(props.intl, "medical_pricelist","medical_pricelist.table.unselectAll")
+        }
       </Button>
           </Box>
         </Box>
